@@ -28,6 +28,7 @@ class Individual(object):
 		'''
 		global GENES
 		gene = random.choice(GENES)
+		print(gene)
 		return gene
 
 	@classmethod
