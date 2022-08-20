@@ -3,9 +3,9 @@ import random
 TARGET = "DONEANDARPI"
 
 def mutated_genes():
-    GENEs = "Sajal Debnath"
+    GENEs = '''Sajal Debnath'''
     gene = random.choice(GENEs)
-    print(gene)
+    # print(gene)
     return gene
 
 
@@ -21,3 +21,21 @@ def create_gnome():
 for i in range(5):
     gnome = create_gnome()
     print(gnome)
+
+
+def name():
+    return "Sajal"
+
+x = 5
+lst_s = [name() for _ in range(x)]
+    # print("sajal") 
+
+print(lst_s)
+
+ls = []
+print(lst_s[:2])
+
+ls.extend(lst_s[:2])
+
+prob = random.random()
+print(prob)

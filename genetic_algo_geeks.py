@@ -22,13 +22,14 @@ class Individual(object):
 		self.fitness = self.cal_fitness()
 
 	@classmethod
-	def mutated_genes(self):
+	def mutated_genes(self): 
 		'''
 		create random genes for mutation
 		'''
+		# provides specific word 
 		global GENES
 		gene = random.choice(GENES)
-		print(gene)
+		# print(gene)
 		return gene
 
 	@classmethod
@@ -47,7 +48,7 @@ class Individual(object):
 
 		# chromosome for offspring
 		child_chromosome = []
-		for gp1, gp2 in zip(self.chromosome, par2.chromosome):
+		for gp1, gp2 in zip(self.chromosome, par2.chromosome):  # untill coromosome size
 
 			# random probability
 			prob = random.random()
@@ -55,17 +56,17 @@ class Individual(object):
 			# if prob is less than 0.45, insert gene
 			# from parent 1
 			if prob < 0.45:
-				child_chromosome.append(gp1)
+				child_chromosome.append(gp1) # single 
 
 			# if prob is between 0.45 and 0.90, insert
 			# gene from parent 2
 			elif prob < 0.90:
-				child_chromosome.append(gp2)
+				child_chromosome.append(gp2) # single
 
-			# otherwise insert random gene(mutate),
+			# otherwise insert random gene(mutate)/ (new gene),
 			# for maintaining diversity
 			else:
-				child_chromosome.append(self.mutated_genes())
+				child_chromosome.append(self.mutated_genes()) # single
 
 		# create new Individual(offspring) using
 		# generated chromosome for offspring
@@ -96,12 +97,26 @@ def main():
 	# create initial population
 	for _ in range(POPULATION_SIZE):
 				gnome = Individual.create_gnome()
+				# print(gnome)
 				population.append(Individual(gnome))
+	print(population[0])
+	print(population[1])
+	print(population[2])
+
+	print(population[0].fitness)
+	print(population[1].fitness)
+	print(population[2].fitness)
+	print(population[34].fitness)
+	print(population[33].fitness)
+	print(population[56].fitness)
 
 	while not found:
 
 		# sort the population in increasing order of fitness score
 		population = sorted(population, key = lambda x:x.fitness)
+
+		for i in range(3):
+    			(population[i].fitness)
 
 		# if the individual having lowest fitness score ie.
 		# 0 then we know that we have reached to the target
@@ -116,30 +131,31 @@ def main():
 		# Perform Elitism, that mean 10% of fittest population
 		# goes to the next generation
 		s = int((10*POPULATION_SIZE)/100)
-		new_generation.extend(population[:s])
+		new_generation.extend(population[:s]) # makes 100 to --> 10
 
 		# From 50% of fittest population, Individuals
 		# will mate to produce offspring
 		s = int((90*POPULATION_SIZE)/100)
 		for _ in range(s):
 			parent1 = random.choice(population[:50])
+			print("parent1 :", parent1.chromosome)
 			parent2 = random.choice(population[:50])
-			child = parent1.mate(parent2)
+			print("parent2 :", parent2.chromosome)
+			child = parent1.mate(parent2)          # mate function for making offspring
+			print("child :", child.chromosome)
 			new_generation.append(child)
 
+		
+		print("new_generation:-->", len(new_generation))
 		population = new_generation
 
-		print("Generation: {}\tString: {}\tFitness: {}".\
-			format(generation,
-			"".join(population[0].chromosome),
+		print("Generation: {}\tString: {}\tFitness: {}".format(generation, "".join(population[0].chromosome),
 			population[0].fitness))
 
 		generation += 1
 
 	
-	print("Generation: {}\tString: {}\tFitness: {}".\
-		format(generation,
-		"".join(population[0].chromosome),
+	print("Generation: {}\tString: {}\tFitness: {}".format(generation, "".join(population[0].chromosome),
 		population[0].fitness))
 
 if __name__ == '__main__':
